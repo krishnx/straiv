@@ -18,7 +18,6 @@ from django.urls import path, re_path
 from bookings.views import PMSBookingsView, BookingCreateView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-from rest_framework import permissions
 
 # Schema view for Swagger
 schema_view = get_schema_view(

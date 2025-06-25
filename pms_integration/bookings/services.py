@@ -7,6 +7,7 @@ from typing import List, Dict
 
 logger = logging.getLogger(__name__)
 
+
 class Services:
     PMS_API_URL = 'https://mocked-pms.straiv.com/api/bookings'
     MOCKED_DATA = [
