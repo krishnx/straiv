@@ -3,9 +3,11 @@ import logging
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .services import Services
-from .mapper import Mapper
+
+from .data_transformer import DataTransformer
 from .exceptions import PMSAPIError
+
+logger = logging.getLogger(__name__)
 
 
 class PMSBookingsView(APIView):
@@ -20,11 +22,10 @@ class PMSBookingsView(APIView):
         :return:
         """
         try:
-            raw_data = Services.fetch_pms_bookings()
-            transformed_data = Mapper.map_pms_bookings(raw_data)
+            transformed_data = DataTransformer().transform(request.GET.get('save'))
 
             return Response(transformed_data, status=status.HTTP_200_OK)
         except PMSAPIError as e:
-            logging.exception(f'failed to fetch the mocked data. {str(e)}')
+            logger.exception(f'failed to fetch the mocked data. {str(e)}')
 
-            return Response({"error": str(e)}, status=status.HTTP_502_BAD_GATEWAY)
+            return Response({'error': str(e)}, status=status.HTTP_502_BAD_GATEWAY)

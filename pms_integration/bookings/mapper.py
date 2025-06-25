@@ -1,4 +1,8 @@
+import logging
+
 from bookings.exceptions import InvalidPMSBookingData, MissingPMSBookingField
+
+logger = logging.getLogger(__name__)
 
 
 class Mapper:
@@ -42,5 +46,7 @@ class Mapper:
     def map_pms_bookings(cls, pms_data):
         if not pms_data:
             raise ValueError('undefined pms data')
+
+        logger.debug('mapped pms booking data')
 
         return [cls.map_pms_booking(data) for data in pms_data]
