@@ -1,7 +1,6 @@
 import logging
 
 from bookings.mapper import Mapper
-from bookings.models import Booking
 from bookings.serlalizers import BookingSerializer
 from bookings.services import Services
 
@@ -14,24 +13,20 @@ class DataTransformer:
         self.services = Services()
         self.mapper = Mapper()
 
-    def transform(self, save=False):
-        raw_data = self.services.fetch_pms_bookings()
+    def map_data(self, raw_data):
+        return self.mapper.map_pms_bookings(raw_data)
+
+    def transform(self, raw_data=None):
+        """
+        Either transform the input raw data or fetch it from the source
+
+        :param raw_data:
+        :return: transformed data
+        """
+        if not raw_data:
+            raw_data = self.services.fetch_pms_bookings(mock=True)
+
         transformed_data = self.mapper.map_pms_bookings(raw_data)
-
-        if save:
-            logger.debug('saving booking data in db')
-            for booking in transformed_data:
-                Booking.objects.update_or_create(
-                    booking_id=booking['booking_id'],
-                    defaults={
-                        'guest': booking['guest'],
-                        'room_number': booking['room_number'],
-                        'check_in_date': booking['check_in_date'],
-                        'check_out_date': booking['check_out_date'],
-                        'misc': booking.get('misc', {})
-                    }
-                )
-
         serializer = BookingSerializer(transformed_data, many=True)
 
         return serializer.data
