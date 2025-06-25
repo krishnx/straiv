@@ -50,7 +50,7 @@ class BookingCreateView(APIView):
         }
     )
     def post(self, request):
-        transformed_data = DataTransformer().map_data([request.data])
+        transformed_data = DataTransformer().map_data(request.data)
         serializer = BookingSerializer(data=transformed_data[0])
 
         if not serializer.is_valid():

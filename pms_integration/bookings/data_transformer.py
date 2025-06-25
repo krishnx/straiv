@@ -14,6 +14,12 @@ class DataTransformer:
         self.mapper = Mapper()
 
     def map_data(self, raw_data):
+        if not raw_data:
+            raise ValueError('undefined raw data')
+
+        if not isinstance(raw_data, list):
+            raw_data = [raw_data]
+
         return self.mapper.map_pms_bookings(raw_data)
 
     def transform(self, raw_data=None):

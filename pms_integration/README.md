@@ -35,3 +35,27 @@ make clean
 6. Install dependencies
 make install
 ```
+
+## Sample cURL commands
+```bash
+1. GET bookins
+curl -X 'GET' \
+  'http://localhost:8000/api/integrations/pms/bookings/' \
+  -H 'accept: application/json' \
+  -H 'X-CSRFTOKEN: aOC913NMG8vt7ekbrAMgytoRrtEsM9RmPcPE9IvmZIU2OzVqRYzUVJ665uJclz8v'
+
+2. POST bookings
+curl -X 'POST' \
+  'http://localhost:8000/api/integrations/pms/bookings/save/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-CSRFTOKEN: aOC913NMG8vt7ekbrAMgytoRrtEsM9RmPcPE9IvmZIU2OzVqRYzUVJ665uJclz8v' \
+  -d '{
+  "id": "256",
+  "guest_name": "Alice",
+  "room": "202",
+  "from_date": "2025-06-25",
+  "to_date": "2025-06-25",
+  "misc": {}
+}'
+```
