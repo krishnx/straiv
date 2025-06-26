@@ -29,22 +29,22 @@ make test
 # 4. Run lint
 make lint
 
-5. Run make clean to clean up Python cache files.
+# 5. Run make clean to clean up Python cache files.
 make clean
 
-6. Install dependencies
+# 6. Install dependencies
 make install
 ```
 
 ## Sample cURL commands
 ```bash
-1. GET bookins
+# 1. GET bookins
 curl -X 'GET' \
   'http://localhost:8000/api/integrations/pms/bookings/' \
   -H 'accept: application/json' \
   -H 'X-CSRFTOKEN: aOC913NMG8vt7ekbrAMgytoRrtEsM9RmPcPE9IvmZIU2OzVqRYzUVJ665uJclz8v'
 
-2. POST bookings
+# 2. POST bookings
 curl -X 'POST' \
   'http://localhost:8000/api/integrations/pms/bookings/save/' \
   -H 'accept: application/json' \
